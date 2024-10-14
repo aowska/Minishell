@@ -15,8 +15,8 @@
 # include <readline/readline.h>  // readline, add_history
 # include <readline/history.h>  // clear_history
 # include <stdbool.h>    // bool type
-# include <./Minishell/Libft/libft.h>
-# include <./Minishell/Libft/ft_printf.h>      // bool type
+# include <libft.h>
+# include <ft_printf.h>      // bool type
 
 // Definicje stałych
 # define TOKEN_SIZE 64
