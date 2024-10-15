@@ -44,10 +44,10 @@ void    free_tokens(char **tokens);
 void    sigint_handler(int sig);
 
 // Struktura do zarządzania sygnałami (jeśli używasz struktur)
-typedef struct s_minishell
+typedef struct  s_minishell
 {
-    char **envp;   // Środowisko
-    int   last_exit_status;
+    char    **envp;
+    int     last_exit_status;
 } t_minishell;
 
 #endif

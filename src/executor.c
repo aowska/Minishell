@@ -1,7 +1,6 @@
 
 #include "includes/minishell.h"
 
-// Funkcja wykonująca komendy zewnętrzne
 void execute_command(char **args)
 {
 	pid_t	pid;
