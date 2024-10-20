@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-// Funkcja obsługująca "cd"
+
 int	ft_cd(char **args)
 {
 	if (args[1] == NULL)
@@ -17,7 +17,6 @@ int	ft_cd(char **args)
 	return (1);
 }
 
-// Funkcja obsługująca "pwd"
 int	ft_pwd(void)
 {
 	char	cwd[1024];

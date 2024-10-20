@@ -1,5 +1,5 @@
 #include "minishell.h"
-// Zmienna globalna do przechowywania statusu wyjścia komendy
+//Global
 int g_exit_status = 0;
 
 int main(void)
@@ -7,29 +7,29 @@ int main(void)
 	char *input;
 	char **args;
 
-	// Ustawiamy obsługę sygnałów (np. Ctrl+C)
+	// signal set up
 	setup_signal_handlers();
 
 	while (1)
 	{
-		// Wyświetlenie promptu i odczytanie inputu
+		// view prompt
 		input = readline("minishell> ");
 
-		// Sprawdzenie czy użytkownik zakończył (np. Ctrl+D / EOF)
+		// czek if user end program
 		if (input == NULL)
 		{
 			printf("exit\n");
 			break;
 		}
 
-		// Dodanie komendy do historii (dla strzałki w górę/dół)
+		// add history
 		if (*input)
 			add_history(input);
 
-		// Parsowanie komendy (rozdzielenie na argumenty)
+		// Parsing comments 
 		args = parse_input(input);
 
-		// Wykonywanie komend wbudowanych, jak "cd" czy "exit"
+		// execute eommends 
 		if (args[0])
 		{
 			if (strcmp(args[0], "cd") == 0)
@@ -41,10 +41,10 @@ int main(void)
 				break;
 			}
 			else
-				execute_command(args); // Wykonywanie innych komend (np. ls)
+				execute_command(args); //exectue for example ls 
 		}
 
-		// Zwolnienie pamięci po każdej komendzie
+		//free memory
 		free(input);
 		free(args);
 	}

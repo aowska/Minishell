@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-// Funkcja parsująca input na tokeny
+// parsing input to token
 char **parse_input(char *input)
 {
 	int bufsize = TOKEN_SIZE;
@@ -34,17 +34,17 @@ char **parse_input(char *input)
 
 		token = strtok(NULL, DELIMITERS);
 	}
-	tokens[i] = NULL; // Koniec tablicy tokenów
+	tokens[i] = NULL; // End token table
 	return tokens;
 }
 
-// Funkcja do zwolnienia pamięci
+//free memory
 void free_tokens(char **tokens)
 {
 	free(tokens);
 }
 
-// Funkcja usuwająca białe znaki z początku i końca inputu
+// white sings in baggining and end
 char *trim_whitespace(char *str)
 {
 	char *end;
