@@ -1,4 +1,4 @@
-#include "includes/minishell.h"
+#include "minishell.h"
 // Zmienna globalna do przechowywania statusu wyjścia komendy
 int g_exit_status = 0;
 
@@ -32,9 +32,9 @@ int main(void)
 		// Wykonywanie komend wbudowanych, jak "cd" czy "exit"
 		if (args[0])
 		{
-			if (ft_strcmp(args[0], "cd") == 0)
+			if (strcmp(args[0], "cd") == 0)
 				ft_cd(args);
-			else if (ft_strcmp(args[0], "exit") == 0)
+			else if (strcmp(args[0], "exit") == 0)
 			{
 				free(input);
 				free(args);

@@ -1,4 +1,4 @@
-#include "includes/minishell.h"
+#include "minishell.h"
 
 // Funkcja obsługująca "cd"
 int	ft_cd(char **args)

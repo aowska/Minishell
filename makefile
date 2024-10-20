@@ -2,7 +2,7 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I ./includes -I ./Libft
 SRC_DIR = src
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/parser.c $(SRC_DIR)/executor.c $(SRC_DIR)/builtins.c $(SRC_DIR)/signals.c
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/parser.c $(SRC_DIR)/executor.c $(SRC_DIR)/builtins.c $(SRC_DIR)/signal.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

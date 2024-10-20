@@ -1,5 +1,5 @@
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 void execute_command(char **args)
 {

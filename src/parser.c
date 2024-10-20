@@ -1,5 +1,5 @@
 
-#include "includes/minishell.h"
+#include "minishell.h"
 
 // Funkcja parsująca input na tokeny
 char **parse_input(char *input)
