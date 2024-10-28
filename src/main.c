@@ -1,53 +1,66 @@
 #include "minishell.h"
-//Global
+
+// Global for the exit status
 int g_exit_status = 0;
+
+char *remove_input_part(char *input)
+{
+	char	*space;
+	int		length;
+	char	*result;
+	char	*start_quote;
+	char	*end_quote;
+
+	space = ft_strchr(input, ' ');
+	if (space == NULL)
+	{
+		return (input);
+	}
+	length = ft_strlen(space + 1);
+	result = (char *)malloc(length + 1);
+	if (result == NULL)
+		return (NULL);
+	ft_strcpy(result, space + 1);
+	start_quote = ft_strchr(result, '"');
+	if (start_quote)
+		ft_memmove(start_quote, start_quote + 1, ft_strlen(start_quote));
+	end_quote = ft_strrchr(result, '"');
+	if (end_quote)
+		*end_quote = '\0';
+	return (result);
+}
 
 int main(void)
 {
 	char *input;
 	char **args;
+	char *commend;
 
-	// signal set up
 	setup_signal_handlers();
 
 	while (1)
 	{
-		// view prompt
 		input = readline("minishell> ");
-
-		// czek if user end program
 		if (input == NULL)
 		{
-			printf("exit\n");
+			ft_printf("exit\n");
 			break;
 		}
-
-		// add history
 		if (*input)
 			add_history(input);
-
-		// Parsing comments 
-		args = parse_input(input);
-
-		// execute eommends 
+		args = ft_split(input, ' ');
+		commend = remove_input_part(input);
 		if (args[0])
 		{
-			if (strcmp(args[0], "cd") == 0)
-				ft_cd(args);
-			else if (strcmp(args[0], "exit") == 0)
+			if (strcmp(args[0], "echo") == 0)
 			{
-				free(input);
-				free(args);
-				break;
+				// fd_echo();
+				printf("%s\n", commend);
 			}
-			else
-				execute_command(args); //exectue for example ls 
 		}
-
-		//free memory
 		free(input);
 		free(args);
 	}
 
-	return g_exit_status;
+	return (0);
 }
