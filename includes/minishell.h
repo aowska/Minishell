@@ -23,6 +23,8 @@
 #define DELIMITERS " \t\r\n\a"
 
 // Funkcje główne
+char	**fft_split(const char *str);
+int		fd_echo(char *command);
 void	setup_signal_handlers(void);
 void	execute_command(char **args);
 void	execute_pipe(char **args1, char **args2);
@@ -39,6 +41,8 @@ char **split_by_pipe(char *input);
 char **split_by_redirect(char *input, char delimiter);
 char *trim_whitespace(char *str);
 void free_tokens(char **tokens);
+
+
 
 // Obsługa sygnałów
 void sigint_handler(int sig);

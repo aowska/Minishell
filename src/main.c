@@ -3,13 +3,13 @@
 // Global for the exit status
 int g_exit_status = 0;
 
-char *remove_input_part(char *input)
+/*char *remove_input_part(char *input)
 {
-	char	*space;
-	int		length;
-	char	*result;
-	char	*start_quote;
-	char	*end_quote;
+	char *space;
+	int length;
+	char *result;
+	char *start_quote;
+	char *end_quote;
 
 	space = ft_strchr(input, ' ');
 	if (space == NULL)
@@ -28,13 +28,51 @@ char *remove_input_part(char *input)
 	if (end_quote)
 		*end_quote = '\0';
 	return (result);
+} */
+
+char *remove_input_part(char *input)
+{
+	char *space;
+	char *result;
+	int length;
+	int i = 0, j = 0;
+	int inside_quotes = 0;
+
+	space = strchr(input, ' ');
+	if (space == NULL)
+	{
+		return input;
+	}
+
+	length = strlen(space + 1);
+	result = (char *)malloc(length + 1);
+	if (result == NULL)
+	{
+		return NULL;
+	}
+
+	for (i = 0, j = 0; space[i + 1] != '\0'; i++)
+	{
+		if (space[i + 1] == '"')
+		{
+			inside_quotes = !inside_quotes;
+		}
+		if (space[i + 1] != '"' || inside_quotes)
+		{
+			result[j++] = space[i + 1];
+		}
+	}
+	result[j] = '\0';
+
+	return result;
 }
 
 int main(void)
 {
 	char *input;
 	char **args;
-	char *commend;
+	// char *commend;
+	
 
 	setup_signal_handlers();
 
@@ -49,15 +87,8 @@ int main(void)
 		if (*input)
 			add_history(input);
 		args = ft_split(input, ' ');
-		commend = remove_input_part(input);
-		if (args[0])
-		{
-			if (strcmp(args[0], "echo") == 0)
-			{
-				// fd_echo();
-				printf("%s\n", commend);
-			}
-		}
+		if (ft_strcmp(args[0], "echo") == 0) 
+			fd_echo(input + 5); // bilding the whole echo logic and sending without echo
 		free(input);
 		free(args);
 	}

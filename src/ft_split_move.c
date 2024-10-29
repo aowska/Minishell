@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 static int	count_string(const char *str)
 {
 	int	len;
@@ -10,12 +9,13 @@ static int	count_string(const char *str)
 	len = 0;
 	while (str[len])
 	{
-		len++;
 		if (str[len] == '"')
 		{
+			len++;		
 			while (str[len] && str[len] != '"')
 				len++;
 			count++;
+			len++;
 		}
 		while (str[len] && (str[len] == 32 || (str[len] >=9 && str[len] <= 13)))
 			len++;
@@ -25,7 +25,12 @@ static int	count_string(const char *str)
 			while (str[len] && str[len] != '"')
 				len++;
 			count++;
+			len++;
 		}
+		while (str[len] && (str[len] == 32 || (str[len] >=9 && str[len] <= 13)))
+			len++;
+		if (!str[len])
+			break ;		
 		while (str[len] && (str[len] != 32 && !(str[len] >=9 && str[len] <= 13)))
 			len++;
 		count++;
@@ -43,11 +48,13 @@ static int	count_char(const char *str)
 	if (str[len] == '"')
 	{
 		len++;
+		count++;
 		while (str[len] && str[len] != '"')
 		{
 			len++;
 			count++;
 		}
+		count++;
 		return (count);
 	}
 	while (str[len] && (str[len] == 32 || (str[len] >=9 && str[len] <= 13)))
@@ -55,11 +62,13 @@ static int	count_char(const char *str)
 	if (str[len] == '"')
 	{
 		len++;
+		count++;
 		while (str[len] && str[len] != '"')
 		{		
 			len++;
 			count++;
 		}
+		count++;
 		return (count);
 	}
 	while (str[len] && (str[len] != 32 && !(str[len] >=9 && str[len] <= 13)))
@@ -83,40 +92,28 @@ static char	*get_string(const char *str, int *i)
 	j = 0;
 	if (str[(*i)] == '"')
 	{
-		(*i)++;
-		while (str[(*i)] != '"')
-		{
-			temp[j] = str[(*i)];
-			j++;
-			(*i)++;
-		}
-		temp[j] = '\0';
+		temp[j++] = str[(*i)++];
+		while (str[(*i)] && str[(*i)] != '"')
+			temp[j++] = str[(*i)++];
 		if (str[(*i)])
-			(*i)++;
+			temp[j++] = str[(*i)++];
+		temp[j] = '\0';			
 		return (temp);
 	}
 	while (str[(*i)] == 32 || (str[(*i)] >=9 && str[(*i)] <= 13))
 		(*i)++;
 	if (str[(*i)] == '"')
 	{
-		(*i)++;
+		temp[j++] = str[(*i)++];
 		while (str[(*i)] && str[(*i)] != '"')
-		{
-			temp[j] = str[(*i)];	
-			j++;
-			(*i)++;
-		}
-		temp[j] = '\0';
+			temp[j++] = str[(*i)++];
 		if (str[(*i)])
-			(*i)++;
+			temp[j++] = str[(*i)++];
+		temp[j] = '\0';			
 		return (temp);
 	}
-	while (str[(*i)] && (str[(*i)] != 32 && !(str[(*i)] >=9 && str[(*i)] <= 13)))
-	{
-		temp[j] = str[(*i)];
-		j++;
-		(*i)++;
-	}
+	while (str[(*i)] && str[(*i)] != '"' && (str[(*i)] != 32 && !(str[(*i)] >=9 && str[(*i)] <= 13)))
+		temp[j++] = str[(*i)++];
 	temp[j] = '\0';
 	return (temp);
 }	
@@ -135,7 +132,7 @@ char	**fft_split(const char *str)
 		return (NULL);
 	i = 0;
 	len = 0;
-	while (str[i])
+	while (len < count)
 	{
 		split[len] = get_string(str, &i);
 		len++;

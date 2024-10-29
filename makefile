@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror -I includes/ -I Libft/
 SRC_DIR = src
 LIBFT_DIR = Libft
 
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/parser.c $(SRC_DIR)/executor.c $(SRC_DIR)/signal.c $(SRC_DIR)/builtins.c
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/parser.c $(SRC_DIR)/executor.c $(SRC_DIR)/signal.c $(SRC_DIR)/builtins.c $(SRC_DIR)/ft_split_move.c $(SRC_DIR)/fd_echo.c
 
 OBJ = $(SRC:.c=.o)
 
